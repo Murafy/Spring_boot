@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>TestDto 의 목록을 저장한 list 애트리뷰트 출력</h2>
+	<table>
+		<tr th:each="str : ${dto}">
+			<td th:text="${str.name}">성명</td>
+			<td th:text="${str.age}">나이</td>
+			<td th:text="${str.address}">지역</td>
+			<td th:text="${str.gender}">성별</td>
+		</tr>
+	</table>
+</body>
+</html>

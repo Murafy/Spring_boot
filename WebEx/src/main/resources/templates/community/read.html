@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>커뮤니티</title>
+</head>
+<body>
+	<h2>커뮤니티 글읽기</h2>
+	<a href="/">INDEX</a>
+	<table>
+		<tr>
+			<td>이름</td>
+			<td th:text="${dto.name}"></td>
+		</tr>
+		<tr>
+			<td>나이</td>
+			<td th:text="${dto.age}"></td>
+		</tr>
+		<tr>
+			<td>지역</td>
+			<td th:text="${dto.address}"></td>
+		</tr>
+		<tr>
+			<td>성별</td>
+			<td th:text="${dto.gender}"></td>
+		</tr>
+	</table>
+</body>
+</html>

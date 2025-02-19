@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Attribute 연습</title>
+</head>
+<body>
+	<h3>action 경로 : /board/write</h3>
+	<form action="write" method="post">
+		<input type="text" name="code" th:value="${code}">
+		<input type="text" name="title">
+		<input type="text" name="content">
+		<button>제출</button>
+	</form>
+</body>
+</html>

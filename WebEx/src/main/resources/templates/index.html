@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Thymeleaf 템플릿 엔진 사용 (서버사이드)  -->
+<!-- 정적 HTML에서 동적HTML로 -->
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/test.css"/>
+</head>
+<body>
+<!-- URL 설계 --> 
+	<ul>
+		<li><a href="/">INDEX</a></li>
+		<li><a href="join">JOIN</a></li>
+		<li><a href="login">LOGIN</a></li>
+		<li><a href="write">글쓰기</a></li>
+	</ul>
+	<hr/>
+	<h2>Index</h2>
+	<h2>Get 요청 파라미터 테스트</h2>
+	<ul>
+		<li><a href="list?name=해린&age=25">파라미터 2개</a></li>
+		<li><a href="listA?name=해린&age=25&address=서울&gender=여성">파라미터 4개</a></li>
+		<li><a href="listB?name=해린&age=25&address=서울&gender=여성">파라미터 4개 dto 사용</a></li>
+		<!-- 파라미터가 없는 경우 처리 (name 파라미터 없음) -->
+		<li><a href="listB?age=25&address=서울&gender=여성">파라미터 3개 name없음 dto 사용</a></li>
+		<!-- 파라미터가 없는 경우 처리 (age 파라미터 없음) -->
+		<!-- int age 는 문자열을 정수로 변환하여 저장한다 값이 없으면 null인데 null 정수로 바꾸지 못해 오류발생 -->
+		<!-- Controller에서 추가 작업 필요 -->
+		<li><a href="listA?name=해린&address=서울&gender=여성">파라미터 3개 age없음 dto 사용</a></li>
+		<li><a href="listB?name=민지&address=서울&gender=여성">파라미터 3개 age없음 dto 사용</a></li>
+		<!-- 파라미터값이 캐스팅 오류 발생 (age) : 오류 페이지로 처리 -->
+		<li><a href="listB?name=민지&age=ABC&address=서울&gender=여성">파라미터 4개 age문자입력 dto 사용</a></li>
+	</ul>
+	<h2>View 에 데이터를 전달하기 : Attribute</h2>
+	<ul>
+		<li><a href="/community/list">커뮤니티 글목록</a></li>
+		<li><a href="exercise">정리좀 하고싶다</a></li>
+	</ul>
+</body>
+</html>

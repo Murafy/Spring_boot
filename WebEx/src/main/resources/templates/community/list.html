@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>커뮤니티 글목록</h2>
+	<ul>
+		<li>[[${page}]]</li>
+		<li>[[${testDto}]]</li>
+	</ul>
+	<hr/>
+	<ul>
+		<li th:text="${page}"></li>
+		<li th:text="${testDto.name}"></li> <!-- null 은 공백으로나옴 -->
+		<li th:text="${testDto.age}"></li>
+		<!-- 리스트로 저장한 Attribute 불러오기 -->
+		<li th:text="${list}"></li> 
+		<li>
+			<ul>
+				<li th:each="str : ${list}">
+					<span th:text="${str}"></span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<a href="/">INDEX</a>
+</body>
+</html>

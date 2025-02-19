@@ -1,0 +1,14 @@
+@charset "UTF-8";
+h2{
+	color : brown;
+}
+
+ul {
+	display: flex;
+	list-style: none;
+	justify-content: center;
+}
+
+ul > li {
+	padding: 15px;
+}
