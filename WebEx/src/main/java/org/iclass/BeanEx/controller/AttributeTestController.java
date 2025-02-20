@@ -56,23 +56,4 @@ public class AttributeTestController {
 		return "exercise";
 	}
 	
-	@GetMapping("/board/write")
-	// 127.0.0.1:8085/board/write?code=XYZ
-	// 파라미터값은 XYZ 이는 write 메서드의 인자 code에 입력됨
-	// 파라미터값이 저장된 변수 code를 Attribute로 저장하고 model을 이용하여
-	// View 로 넘겨준다, Attribute 속성으로 넘어간 파라미터값은 th:value="${code}"에 입력되어
-	// View 화면에 그대로 출력된다
-	public String write(String code,Model model) {
-		model.addAttribute("code",code);
-		return "board/write";
-	}
-	
-	@PostMapping("/board/write")
-	public String save(String title, String content) {
-		log.info("Post 요청 파라미터 : {}, {}",title, content);
-		return "redirect:/";
-	}
-	
-	
-	
 }

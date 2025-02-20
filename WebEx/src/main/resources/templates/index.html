@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script type="text/javascript">
+		if('[[${message}]]'.length !=0)
+			alert('[[${message}]]')
+			// 버튼 누르면 1회용 메세지
+	</script>
 <link rel="stylesheet" href="/css/test.css"/>
 </head>
 <body>
@@ -35,7 +40,16 @@
 	<h2>View 에 데이터를 전달하기 : Attribute</h2>
 	<ul>
 		<li><a href="/community/list">커뮤니티 글목록</a></li>
+		<li><a href="/community/read">커뮤니티 글읽기</a></li>
 		<li><a href="exercise">정리좀 하고싶다</a></li>
 	</ul>
+	
+	<h2>Controller 메서드가 받은 파라미터를 View에 전달하기</h2>
+	<ul>
+		<li><a href="/board/write?code=XYZ">방법(1)</a></li>
+		<li><a href="/board/list?page=4">방법(2)</a></li>
+	</ul>
+	<h2>Parameter, redirect , Attribute 연습</h2>
+	<a href="/board/search">search</a>
 </body>
 </html>

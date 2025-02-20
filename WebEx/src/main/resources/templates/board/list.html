@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<h2>list 페이지 입니다.</h2>
+	<h2>Parameter , Attribute 연습</h2>
+	<h3>현재 페이지 번호 : <span th:text="${page}"></span>
+	</h3>
+	<hr/>
+	<h3>테스트용 Form</h3>
+	<!-- search 는 상대경로 , /search 는 절대경로 -->
+	<form action="search" method="post">
+		<input type="hidden" name="page"> <!-- 실제 구현시 hidden 을 씀  -->
+		<input type="text" name="keyword" placeholder="검색어 입력">
+		<button>제출</button>
+		
+	</form>
 </body>
 </html>
