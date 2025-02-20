@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="login" method="post">
+		<input type="text" name="userid" placeholder="ID">
+		<input type="text" name="password" placeholder="Password">
+					<div id="fail" style="color:red;"></div>
+			<button type="button" onclick="location.href='/'">홈</button>
+			<button type="submit">로그인</button>
+				<!-- form 안에서는 type="submit" 생략 가능 -->
+	  	</form>
+   <script type="text/javascript">
+   		const fail = '[[${fail}]]'   // ????
+   		console.log(fail)
+   		if(fail==='y')
+   			document.getElementById('fail').innerHTML 
+   			='사용자 아이디 또는 패스워드 정보가 올바르지 않습니다.'
+   </script>	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>	
+</body>
+</html>

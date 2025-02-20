@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- 마이바티스 사용 -->
+  <mapper namespace="org.iclass.mybatisEx.mapper.UserAccountMapper">
+  	<insert id="insert" parameterType="UserAccount">
+  		insert into tbl_user_account(userid,username,password,birth,gender,email) 
+        values (#{userid}, #{username}, #{password}, #{birth}, #{gender}, #{email})
+  	</insert>
+  	<select id="selectForLogin" parameterType="java.util.Map" resultType="UserAccount">
+		select * from tbl_user_account where userid=#{userid} and password=#{password}
+  	</select>
+  </mapper>
+<!-- https://github.com/sohi-kim/jsp_2jstl/blob/main/src/main/java/dao/UserAccountDao.java -->
+<!-- 위 링크의 Dao 를 마이바티스 - 스프링으로 변경하기 위해 mapper XML 작성 -->
+
+
