@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+ul#header {
+	list-style: none;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+}
+
+ul#nav {
+	list-style: none;
+	display: flex;
+}
+
+nav {
+	padding: 5px;
+	font-size: 0.7rem;
+	display: flex;
+	justify-content: flex-end;
+	background-color: orange;
+	color: white;
+}
+
+ul#header>li {
+	padding: 20px;
+}
+/* 자식 */
+ul#nav>li {
+	padding: 0px 10px;
+}
+
+/* 자손 */
+ul#nav a {
+	color: brown;
+	font-weight: 600;
+}
+
+a {
+	text-decoration: none;
+}

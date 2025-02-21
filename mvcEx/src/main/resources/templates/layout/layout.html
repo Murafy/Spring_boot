@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>demo</title>
+<link rel="stylesheet" href="/css/layout.css"/>
+</head>
+<!-- 
+		<dependency>
+		    <groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		    <version>3.3.0</version>
+		</dependency>
+ -->
+<body>
+	<header>	
+	<ul id="header">
+		<li><a href="/">HOME</a></li>
+		<li><a href="/home">회사소개</a></li>
+		<li><a href="/product">도서</a></li>
+		<!-- include 하는 header.jsp에서는 절대 경로로 지정합니다.
+			 포함시키는 페이지의 경로가 모두 다르기 때문입니다.
+		  -->
+		<li><a href="/community/list">커뮤니티</a></li>
+		<li><a href="#">고객센터</a></li>
+	</ul>
+	<nav>
+		<ul id="nav" th:if="${session.accountDto !=null }">
+				<li><span th:text="${session.accountDto.username }"></span> 님 환영합니다.</li>
+				<li><a href="logout">로그아웃</a></li>
+		</ul>
+		<ul  id="nav" th:if="${session.accountDto ==null }">		
+				<li><a href="login">로그인</a></li>
+				<li><a href="register">회원가입</a></li>
+		</ul>
+	</nav>
+   </header>
+   <th:block layout:fragment="main">
+    <!-- Page content-->
+  </th:block>
+   <th:block layout:fragment="script">
+   
+   </th:block>
+</body>
+</html>

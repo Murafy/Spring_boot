@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>mvc 연습</title>
+	<script type="text/javascript">
+		if('[[${message}]].legth !=0')
+			alert('[[${message}]]')
+	</script>
+</head>
+<body>
+<main layout:fragment="main">
+	<h2>INDEX</h2>
+</main>
+ 	
+<!-- 
+   <div th:if="${session.account != null}">
+		<span th:text="${session.account.username}"></span>
+	</div>
+ -->
+</body>
+</html>

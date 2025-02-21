@@ -1,0 +1,27 @@
+@charset "UTF-8";
+   .regForm {
+    	max-width: 500px;
+    	margin:50px auto ;
+    }
+    .w90{
+    	width: 90px;
+    }
+   /* > 기호는 자식, + 기호는 형제 선택자 , 기호는 목록 나열 */
+    div.input-group > input + span ,div.input-group > select + span,
+    div.form-floating > input + span , div#fail {
+    	color:red;
+    	font-size: 1rem;
+    	padding-left: 15px;
+    
+    }
+    
+    .centerDiv{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+    /* 로그인 폼 5_login.jsp */
+    .centerDiv > button {
+		margin: 20px 10px; 
+
+	}
