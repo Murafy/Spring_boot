@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- 마이바티스 사용 -->
+  <mapper namespace="org.iclass.rest.mapper.UserAccountMapper">
+  	<insert id="insert" parameterType="UserAccount">
+  		insert into tbl_user_account(userid,username,password,birth,gender,email) 
+        values (#{userid}, #{username}, #{password}, #{birth}, #{gender}, #{email})
+  	</insert>
+  	<select id="selectForLogin" parameterType="java.util.Map" resultType="UserAccount">
+		select * from tbl_user_account where userid=#{userid} and password=#{password}
+  	</select>
+  	
+  	<!-- api 컨트롤러 연습 -->
+  	<select id="selectByEmail" parameterType="String" resultType="int">
+  		select count(*) from tbl_user_account
+  		where email = #{email}
+  	</select>
+  	
+  	<select id="selectByUserid" parameterType="String" resultType="int">
+  	  		select count(*) from tbl_user_account
+  		where userid = #{userid}
+  	</select>
+  	
+  	<update id="updateEmail" parameterType="UserAccount">
+  		update tbl_user_account
+  		set email=#{email}
+  		where userid =#{userid}
+  	</update>
+  	
+  	<delete id="delete" parameterType="String">
+  		delete from tbl_user_account
+  		where userid = #{userid}
+  	</delete>
+  	
+  	<select id="selectByPk" parameterType="String" resultType="UserAccount">
+  		select * from tbl_user_account
+  		where userid = #{userid}
+  	</select>
+  </mapper>
+
+
+
