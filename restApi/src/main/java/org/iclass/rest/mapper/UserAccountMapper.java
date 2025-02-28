@@ -1,6 +1,7 @@
 package org.iclass.rest.mapper;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,4 +17,5 @@ public interface UserAccountMapper {
 	int updateEmail(UserAccount dto); // email 수정
 	int delete(String userid);			// userid 삭제
 	UserAccount selectByPk(String userid); // userid 조회
+	List<UserAccount> selectAll (); // 모든 항목을 가져오기때문에 List 사용
 }

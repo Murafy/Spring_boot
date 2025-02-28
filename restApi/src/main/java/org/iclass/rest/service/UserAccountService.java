@@ -1,5 +1,7 @@
 package org.iclass.rest.service;
 
+import java.util.List;
+
 import org.iclass.rest.dto.UserAccount;
 import org.iclass.rest.mapper.UserAccountMapper;
 import org.springframework.stereotype.Service;
@@ -38,4 +40,9 @@ public class UserAccountService {
 	public boolean vaildUserid(String email) {
 	return (mapper.selectByUserid(email)==0);
 }
+	
+	// 모든 유저 가져오기
+	public List<UserAccount> getList(){
+		return (mapper.selectAll());
+	}
 }

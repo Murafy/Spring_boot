@@ -1,5 +1,7 @@
 package org.iclass.rest.controller;
 
+import java.util.List;
+
 import org.iclass.rest.dto.UserAccount;
 import org.iclass.rest.service.UserAccountService;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor // final 변수만 생성자 초기화 (실무.ver)
@@ -25,7 +28,7 @@ public class UserAccountApiController {
 	public ResponseEntity<UserAccount> getOne(@PathVariable String userid) {
 		UserAccount account = service.userinfo(userid);
 		log.info("유저찾기 : {}", account);
-		return ResponseEntity.ok().body(account);
+		return ResponseEntity.ok().body(account); // 직렬화 해서 웹으로 전송
 	}
 
 	// web 요청에 따라 userid 추가
@@ -34,7 +37,7 @@ public class UserAccountApiController {
 		try {
 			log.info("추가할 유저 : {}", dto);
 			int account = service.regist(dto);
-			return ResponseEntity.ok().body(account);
+			return ResponseEntity.ok().body(account); 
 		} catch (Exception e) {
 			log.info("user 추가 오류 : {}", e.getMessage());
 			return ResponseEntity.badRequest().build();
@@ -66,5 +69,12 @@ public class UserAccountApiController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	// 모든 유저 가져오기
+	@GetMapping("/account")
+	public ResponseEntity<List<UserAccount>>getList() {
+		return ResponseEntity.ok().body(service.getList());
+	}
+	
 
 }

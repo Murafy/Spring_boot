@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>rest api 연습</title>
+</head>
+<style>
+input {
+	display: block;
+}
+
+div.row > input{	 /*fget.js의 box class는 row임*/
+	display:initial; /* 원래 요소가 가지고있는 초기속성값으로 */
+}
+</style>
+<body>
+	<h2>rest api 테스트</h2>
+	<button id="btnGetList">Get List</button>
+	<button id="btnGetOne">Get 하나만</button>
+	<input id="search" placeholder="조회할 아이디 입력">
+	<h3>조회 결과</h3>
+	<div id="result">
+	
+	</div>
+
+	<h3>계정 등록</h3>
+	<div id="regist">
+		<input id="userid" placeholder="아이디를 입력하세요">
+	    <input id="username" placeholder="이름을 입력하세요">
+	    <input id="password" type="password" placeholder="패스워드를 입력하세요."> 
+	    <label>생년월일 입력하세요.</label> <input id="birth" type="date">
+	    <select id="gender">
+	    	<option>남자</option>
+	    	<option>여자</option>
+	    	<option>중성</option>
+	    </select>
+	    <input id="email" type="email" placeholder="이메일을 입력하세요.">
+		<button id="btnSave">저장하기</button>
+		
+	</div>
+	<script type="text/javascript" src="/js/fget.js"></script> <!-- 조회 -->
+	<script type="text/javascript" src="/js/fpost.js"></script> <!-- 가입 -->
+	
+</body>
+</html>

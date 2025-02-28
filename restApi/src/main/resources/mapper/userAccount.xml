@@ -37,6 +37,11 @@
   		select * from tbl_user_account
   		where userid = #{userid}
   	</select>
+  	
+  	<select id="selectAll" resultType="UserAccount">
+  	select * from tbl_user_account
+  	order by userid
+  	</select>
   </mapper>
 
 
