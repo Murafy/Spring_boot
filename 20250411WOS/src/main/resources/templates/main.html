@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<style>
+    .chat-toggle-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+    
+    .chat-toggle-btn:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+    
+    .chat-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: #dc3545;
+        color: white;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mini-chat-container {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 350px;
+        height: 450px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 999;
+    }
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT 스킬 학습 허브</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <!-- 메인페이지 타이핑 효과 -->
+    <link rel="stylesheet" href="/assets/css/typing.css">
+    <!-- 채팅방 스타일 CSS -->
+    <link rel="stylesheet" href="/assets/css/chat.css">
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+    <style>
+        #idMsg, #passwordMsg {
+            color: red;
+        }
+        
+         #idMsg, #passwordMsg {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    </style>
+    <!-- SockJS와 STOMP 클라이언트 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/main">
+            <i class="fas fa-laptop-code feature-icon align-top"></i> IT 스킬 허브
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto" id="navItems">  </ul> </div>
+    </div>
+</nav>
+<!-- Modal Start -->
+<!-- aria-hidden="true" 속성은 스크린리더와 같은 보조기술의 접근을 허용할꺼냐,말꺼냐 -->
+<!-- true 임으로 보조기술의 접근을 허용하지않지만 내부의 입력요소,버튼이 있음으로 스크린리더 입장에서는 아무것도 없는곳에 사용자가 입력하는 꼴(모순) 그래서 Web에서는 이를 오류로 판단함. -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">IT 스킬 허브</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="handleModalClose()"></button>
+      </div>
+      <!-- Modal Body Start -->
+      <div class="modal-body">
+      <script type="text/javascript" src="/assets/js/login.js"></script>
+  <form id="loginForm" class="shadow-lg p-3 mb-5 bg-body-tertiary rounded" method="post">
+    <img class="mb-4" src="/assets/img/login.png" alt="logo 이미지" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">로그인</h1>
+
+    <div class="form-floating">
+      <input type="text" name="id" class="form-control" id="username" placeholder="ID">  <label for="username">
+        <i class="fas fa-user"></i> ID
+      </label>
+      <span id="idMsg"></span>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호"> <label for="password">
+        <i class="fas fa-lock"></i> 비밀번호
+      </label>
+      <span id="passwordMsg"></span>
+    </div>
+
+    <div class="form-check text-start my-3">
+      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+       	ID 기억하기
+      </label>
+    </div>
+    <button class="btn btn-primary w-100 py-2" type="submit">
+      <i class="fas fa-sign-in-alt"></i> 로그인
+    </button>
+    <p class="mt-5 mb-3 text-body-secondary">&copy; 2025-2028</p>
+  </form>
+<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End -->
+<section class="hero-section">
+            <div class="container">
+                <div class="typing-container">IT 핵심 기술!
+                 <span id="typing-text"></span><span class="cursor">|</span><br> 당신의 커리어 날개를 달아보세요</div>
+                <p class="lead mb-4">Java, Javascript, Oracle SQL, Spring Boot, HTML, CSS  <br> 웹 개발과 데이터베이스 전문가를 위한 최고의 학습 플랫폼</p>
+                <a class="btn btn-primary btn-lg" href="#study" role="button">강좌 둘러보기</a>
+                </div>
+        </section>
+    <section class="py-5 bg-white">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col">
+                        <h2>🔥 핵심 기술 트랙 🔥</h2>
+                        <p class="lead">전문 개발자로 성장하기 위한 필수 기술, IT 스킬 허브에서 시작하세요.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <i class="fab fa-java feature-icon"></i>
+                            <h3 class="h5">Java 마스터 과정</h3>
+                            <p>기본 문법부터 Spring Boot, 실전 프로젝트까지 완벽 마스터</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <i class="fab fa-js feature-icon"></i>
+                            <h3 class="h5">Javascript 풀스택 과정</h3>
+                            <p>프론트엔드, 백엔드, 웹앱 개발까지 - Javascript 전문가</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <i class="fas fa-database feature-icon"></i>
+                            <h3 class="h5">Oracle SQL 전문가 과정</h3>
+                            <p>데이터 모델링, SQL 쿼리, DB 튜닝 -  데이터베이스 전문가</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <section class="py-5 bg-light" id="study">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col">
+                    <h2>🥇 추천 강좌 🥇</h2>
+                    <p class="lead">수강생 만족도 최고! 지금 가장 인기 있는 강좌들을 만나보세요.</p>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card course-card">
+                        <img src="assets/img/java.jpg" class="card-img-top course-card-img" alt="Java 프로그래밍"/>
+                        <div class="card-body">
+                            <h5 class="card-title">Java 프로그래밍 첫걸음</h5>
+                            <p class="card-text">Java 기초 문법 완벽 이해, 객체지향 개발 핵심 마스터</p>
+                            <a href="/main/board/java?page=1" class="btn btn-primary" onclick="onlyLogin()">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card course-card">
+                        <img src="assets/img/javascript.jpg" class="card-img-top course-card-img" alt="Javascript 웹 개발">
+                        <div class="card-body">
+                            <h5 class="card-title">웹 개발, Javascript로 시작하기</h5>
+                            <p class="card-text">HTML, CSS, Javascript 기초부터 웹 개발 실력 완성</p>
+                            <a href="/main/board/javascr?page=1" class="btn btn-primary">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card course-card">
+                        <img src="assets/img/oracle.jpg" class="card-img-top course-card-img" alt="Oracle SQL 데이터베이스">
+                        <div class="card-body">
+                            <h5 class="card-title">Oracle SQL 실무 마스터 클래스</h5>
+                            <p class="card-text">SQL 쿼리 작성, 데이터 분석, DB 활용 - 실무 완벽 대비</p>
+                            <a href="/main/board/orasql?page=1" class="btn btn-primary">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                <div class="col">
+                    <div class="card course-card">
+                        <img src="assets/img/springboot.jpg" class="card-img-top course-card-img" alt="Spring Boot 프레임워크">
+                        <div class="card-body">
+                            <h5 class="card-title">Spring Boot 웹 개발 전문가 과정</h5>
+                            <p class="card-text">Spring Boot 핵심 기능, REST API 개발, 배포까지 실무 완벽 가이드</p>
+                            <a href="/main/board/springboot?page=1" class="btn btn-primary">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col">
+                    <div class="card course-card">
+                        <img src="assets/img/htmlcss.jpg" class="card-img-top course-card-img" alt="Spring Boot 프레임워크">
+                        <div class="card-body">
+                            <h5 class="card-title">HTML/CSS 반응형 웹 디자인</h5>
+                            <p class="card-text">웹 표준 HTML, CSS, 반응형 웹 디자인 실무</p>
+                            <a href="/main/board/htmlcss?page=1" class="btn btn-primary">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card course-card">
+                        <img src="assets/img/react.jpg" class="card-img-top course-card-img" alt="Javascript 고급">
+                        <div class="card-body">
+                            <h5 class="card-title">React 웹개발 핵심 라이브러리</h5>
+                            <p class="card-text">React만의 컴포넌트 아키텍처! 재사용성, 유지보수성, 확장성을 확보한 실전 웹앱 개발</p>
+                            <a href="/course/javascript-advance" class="btn btn-primary">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <button id="chatToggleBtn" class="chat-toggle-btn" style="display: none;">
+    <i class="fas fa-comments"></i>
+    <span class="chat-badge" style="display: none;">0</span>
+</button>
+
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 IT 스킬 허브. All rights reserved.</p>
+            <p>문의: <a href="mailto:contact@itstudyhub.com" class="text-light">contact@itstudyhub.com</a></p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/assets/js/common.js"></script>
+    <!-- 전역 에러 핸들러 추가 -->
+	<script src="/assets/js/error-handler.js"></script>
+    <script type="text/javascript" src="/assets/js/statusLogout.js"></script>
+    <script type="text/javascript" src="/assets/js/login.js"></script>
+    <script type="text/javascript" src="/assets/js/typing.js"></script>
+    <!-- 개발자 콘솔용 브랜딩 로그 아트  -->
+    <script type="text/javascript" src="/assets/js/main.js"></script>
+    <!-- 채팅기능 스크립트(html 컴포넌트를 동적으로 로드함) -->
+    <script src="/assets/js/chat-component.js"></script>
+</body>
+</html>

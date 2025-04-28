@@ -1,0 +1,100 @@
+@charset "UTF-8";
+@import '../core/variables.css';
+@import '../core/common.css';
+
+:root {
+    --theme-primary: #0080ff;     /* 파란색 - HTML/CSS 연상 */
+    --theme-secondary: #81BEF7;   /* 연한 파란색 */
+    --theme-accent: #d6eaf8;      /* 보조 색상 */
+    --theme-dark: #0057b3;        /* 어두운 파란색 */
+    --theme-light: #e6f2ff;       /* 연한 파란색 배경 */
+    --theme-gradient: linear-gradient(135deg, #0080ff, #81BEF7);
+    
+    /* 인용구 테마 변수 재정의 - HTML/CSS 테마 */
+    --quote-bg: #f0f8ff; /* 흰색 대신 매우 연한 파란색 배경 */
+    --quote-text: #3a5a78;
+    --quote-shadow: rgba(0, 128, 255, 0.15); /* 그림자 불투명도 증가 */
+    --quote-icon: rgba(0, 128, 255, 0.5); /* 인용 아이콘 불투명도 증가 */
+    --quote-author: #0057b3;
+
+}
+/* HTML/CSS 테마의 인용구 컨테이너 추가 스타일 */
+.hero-header.text-center.text-white #subtitle {
+    /* 기존 스타일 유지하면서 다음 스타일 추가 */
+    border-left: 4px solid rgba(0, 128, 255, 0.4) !important; /* 왼쪽 테두리 추가 */
+    background-image: linear-gradient(to right, #f0f8ff, white) !important; /* 백그라운드 그라데이션 추가 */
+}
+
+
+.hero-header.text-center.text-white #subtitle {
+    /* 기존 스타일에 추가 */
+    position: relative;
+}
+
+.hero-header.text-center.text-white #subtitle::before {
+    /* 인용 아이콘 스타일은 그대로 유지하면서 */
+    z-index: 2; /* 아이콘이 블룸 효과 위에 나타나도록 설정 */
+}
+
+
+/* HTML/CSS 특화 헤더 스타일 */
+.hero-header {
+    position: relative;
+    padding: 5rem 0;
+    overflow: hidden;
+    background-image: none !important; /* 기존 이미지 제거 */
+}
+
+.hero-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e6f2ff, #a6d5fa);
+    z-index: -2;
+}
+
+.hero-header .container {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 타이틀 스타일 */
+#title {
+    color: #0057b3 !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
+}
+
+#subtitle {
+    color: #3a5a78;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* HTML/CSS 특화 버튼 특수 스타일 - 색상 변수만 덮어쓰기 */
+.btn-primary.fancy-btn {
+    box-shadow: 0 4px 20px rgba(0, 128, 255, 0.5);
+}
+
+.pagination .page-item.active .page-link {
+    box-shadow: 0 5px 15px rgba(0, 128, 255, 0.2);
+}
+
+.language-tag {
+    box-shadow: 0 2px 5px rgba(0, 128, 255, 0.3);
+}
+
+.board-card:hover {
+    box-shadow: 0 15px 30px rgba(0, 128, 255, 0.1);
+}

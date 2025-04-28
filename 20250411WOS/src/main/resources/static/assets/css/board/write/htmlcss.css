@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/* HTML/CSS 테마 글쓰기 페이지 스타일 (정리됨) */
+:root {
+    --primary-color: #0080ff;
+    --secondary-color: #6c757d;
+    --accent-color: #0066cc;
+    --text-color: #333;
+    --light-text: #6c757d;
+    --bg-color: #f0f8ff;
+    --card-bg: #ffffff;
+    --border-radius: 12px;
+    --box-shadow: 0 8px 20px rgba(0, 128, 255, 0.08);
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+/* 네비게이션 바 */
+.navbar-dark {
+    background-color: #0080ff !important;
+    /* 참고: !important는 꼭 필요한 경우에만 사용하세요. */
+}
+
+/* 헤더 배경 */
+.hero-header {
+    background-image: url('/assets/img/board/htmlcss.gif');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+}
+
+.hero-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-header .container {
+    position: relative;
+    z-index: 2;
+}
+
+#title {
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* .lead 클래스는 write.html의 #subtitle 요소에 해당될 수 있습니다. */
+.hero-header .lead {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 폼 컨테이너 */
+.write-form-container {
+    border-top: 5px solid var(--primary-color);
+    /* 필요하다면 여기에 .card 같은 스타일을 추가하여 배경색, 그림자 등을 적용할 수 있습니다. */
+    background-color: var(--card-bg); /* 예시: 흰색 배경 추가 */
+    padding: 2rem; /* 예시: 내부 여백 추가 */
+    border-radius: var(--border-radius); /* 예시: 둥근 모서리 적용 */
+    box-shadow: var(--box-shadow); /* 예시: 그림자 적용 */
+    margin-top: -50px; /* 예시: 헤더와 살짝 겹치게 조정 */
+    position: relative; /* 예시: z-index 적용 위해 */
+    z-index: 3; /* 예시: 헤더보다 위에 오도록 */
+}
+
+/* 폼 요소 포커스 */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.25);
+}
+
+/* 반응형 조정 (필요한 경우 추가) */
+@media (max-width: 768px) {
+    .write-form-container {
+        margin-top: -30px;
+        padding: 1.5rem;
+    }
+}
+
+/* 다크 모드 대응 (필요한 경우 추가) */
+/* @media (prefers-color-scheme: dark) { ... } */

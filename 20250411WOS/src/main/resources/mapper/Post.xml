@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.iclass.wos.mapper.PostMapper">
+	<!-- 게시글 읽기 -->
+	<select id="readPage" parameterType="java.util.Map"
+		resultType="PostDto">
+		SELECT * FROM POST WHERE IDX=#{idx} AND LANG=#{language}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="viewCount" parameterType="int">
+		UPDATE POST
+		SET READCOUNT = READCOUNT +1
+		WHERE idx = #{idx}
+	</update>
+	
+	<!-- 특정 언어의 게시글 총 갯수를 가져오기 (페이지네이션에 사용됨) -->
+	<select id="getAllCount" parameterType="string" resultType="int">
+		SELECT count(LANG) FROM POST
+		WHERE LANG=#{lang}
+	</select>
+
+	<!-- 글목록 가져오기 (페이지네이션) 핵심! resultType PostDto로 결괏값을 매핑 한다 매핑된 값은 PageResponseDTO에서 
+		List 형태로 받아서 사용한다. 마이바티스의 test 속성으로 조건문을 평가한다 -->
+	<select id="selectPageList" parameterType="java.util.Map"
+		resultType="PostDto">
+		SELECT * FROM
+		(SELECT rownum r ,f.* from
+		(SELECT * FROM POST
+		<if test="language != null and language != ''">
+			WHERE LANG = #{language}
+		</if>
+		ORDER BY idx DESC) f)
+		WHERE r BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+
+	<!-- 게시글 저장 -->
+	<insert id="insertPost" parameterType="PostDto"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO POST (
+		IDX, WRITER, TITLE, CONTENT, READCOUNT, COMMENTCOUNT, IP, LANG, THUMBNAIL,
+		CREATEAT
+		) VALUES (
+		POST_SEQ.NEXTVAL,
+		#{writer},
+		#{title},
+		#{content},
+		#{readcount},
+		#{commentcount},
+		#{ip},
+		#{lang},
+		#{thumbnail, jdbcType=VARCHAR},
+		#{createat}
+		)
+		<selectKey keyProperty="idx" resultType="int" order="AFTER">
+			SELECT POST_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+</mapper>

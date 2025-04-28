@@ -1,0 +1,93 @@
+@charset "UTF-8";
+@import './variables.css';
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: var(--dark-background);
+        --card-bg: var(--dark-card-bg);
+        --text-color: var(--dark-text-color);
+        --text-light: var(--dark-text-light);
+    }
+    
+    /* 기본 요소 */
+    body {
+        background-color: var(--dark-background);
+        color: var(--dark-text-color);
+    }
+    
+    /* 카드 요소 */
+    .board-card {
+        background-color: var(--dark-card-bg);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card-text {
+        color: var(--dark-text-light);
+    }
+    
+    /* 테이블 스타일 */
+    .table-light thead th {
+        background-color: var(--dark-secondary-bg);
+        color: var(--dark-text-light);
+    }
+    
+    /* 헤더 스타일 */
+    .hero-header.text-center.text-white::before {
+        background: rgba(0, 0, 0, 0.6) !important;
+    }
+    
+    /* 인용 & 제목 스타일 */
+    .hero-header.text-center.text-white #subtitle {
+        background-color: var(--dark-secondary-bg) !important;
+        color: var(--dark-text-color) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .hero-header.text-center.text-white #subtitle br + * {
+        color: var(--dark-text-color) !important;
+    }
+    
+    /* 폼 요소 */
+    .form-control {
+        background-color: var(--dark-secondary-bg);
+        border-color: var(--dark-border-color);
+        color: var(--dark-text-color);
+    }
+    
+    .form-control:focus {
+        background-color: var(--dark-secondary-bg);
+    }
+    
+    .btn-cancel {
+        background-color: var(--dark-secondary-bg);
+    }
+    
+    #codeLanguage {
+        background-color: var(--dark-secondary-bg);
+        color: var(--dark-text-color);
+        border-color: var(--dark-border-color);
+    }
+    
+    /* 필터링 섹션 */
+    .filter-section {
+        background: var(--dark-card-bg);
+    }
+    
+    /* 코멘트 아이템 */
+    .comment-item {
+        background-color: var(--dark-secondary-bg);
+    }
+    
+    /* 좋아요 버튼 */
+    .like-button {
+        background-color: var(--dark-secondary-bg);
+    }
+    
+    /* 코멘트 입력 */
+    .comment-input {
+        background-color: var(--dark-secondary-bg);
+        color: var(--dark-text-color);
+        border-color: var(--dark-border-color);
+    }
+}

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입 - 코딩 스터디 허브</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+body {
+	background-color: #f8f9fa;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.signup-container {
+	max-width: 600px;
+	margin: 50px auto;
+	background-color: #fff;
+	border-radius: 15px;
+	padding: 40px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.form-title {
+	text-align: center;
+	margin-bottom: 30px;
+	color: #333;
+	font-weight: 700;
+}
+
+.form-label {
+	font-weight: 600;
+	font-size: 0.9rem;
+	color: #555;
+	margin-bottom: 5px;
+}
+
+.form-control {
+	padding: 12px;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	margin-bottom: 5px;
+}
+
+.form-control:focus {
+	box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+	border-color: #007bff;
+}
+
+.password-field {
+	position: relative;
+}
+
+.password-toggle {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: #6c757d;
+}
+
+.error-message {
+	color: #dc3545;
+	font-size: 0.85rem;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	display: none;
+}
+
+.btn-signup {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 12px;
+	border-radius: 8px;
+	font-weight: 600;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.btn-signup:hover {
+	background-color: #0069d9;
+}
+
+.form-text {
+	font-size: 0.85rem;
+	color: #6c757d;
+}
+
+.login-link {
+	text-align: center;
+	margin-top: 25px;
+	font-size: 0.95rem;
+}
+
+.requirement-list {
+	font-size: 0.85rem;
+	color: #6c757d;
+	padding-left: 20px;
+	margin-bottom: 15px;
+}
+
+.requirement-list li {
+	margin-bottom: 5px;
+}
+
+.valid-feedback {
+	color: #198754;
+	font-size: 0.85rem;
+	display: none;
+}
+
+.btn.btn-primary.py-2 {
+	border-radius: 50px;
+	margin-top: 5px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="signup-container">
+			<div class="logo">
+				<i class="fas fa-laptop-code fa-3x text-primary"></i>
+				<h4 class="mt-3">코딩 스터디 허브</h4>
+			</div>
+
+			<h2 class="form-title">회원가입</h2>
+			<!-- autocomplete="off" 으로 자동완성 불가능 -->
+			<form id="signupForm" method="post" autocomplete="off">
+				<!-- 아이디 필드 -->
+				<div class="mb-3">
+					<label for="userId" class="form-label">아이디 <span
+						class="text-danger">*</span></label> <input type="text"
+						class="form-control" id="userId" name="id" required autocomplete="new-user">
+					<div class="error-message" id="userIdError"></div>
+					<div class="form-text">영문, 숫자 조합으로 4-20자리</div>
+				</div>
+
+				<!-- 비밀번호 필드 -->
+				<div class="mb-3">
+					<label for="password" class="form-label">비밀번호 <span
+						class="text-danger">*</span></label>
+					<div class="password-field">
+						<input type="password" class="form-control" id="password"
+							name="password" required autocomplete="new-password"> <i
+							class="fas fa-eye-slash password-toggle" id="togglePassword"></i>
+					</div>
+					<div class="error-message" id="passwordError"></div>
+					<ul class="requirement-list">
+						<li>8자 이상 입력</li>
+						<li>영문, 숫자, 특수문자 중 2가지 이상 조합</li>
+					</ul>
+				</div>
+
+				<!-- 비밀번호 확인 필드 -->
+				<div class="mb-3">
+					<label for="confirmPassword" class="form-label">비밀번호 확인 <span
+						class="text-danger">*</span></label>
+					<div class="password-field">
+						<input type="password" class="form-control" id="confirmPassword"
+							required autocomplete="new-password"> <i class="fas fa-eye-slash password-toggle"
+							id="toggleConfirmPassword"></i>
+					</div>
+					<div class="error-message" id="confirmPasswordError"></div>
+					<div class="valid-feedback" id="passwordMatchFeedback">비밀번호가
+						일치합니다.</div>
+				</div>
+
+				<!-- 주소 필드 (Daum API) -->
+				<div class="mb-3">
+					<label class="form-label">주소 <span class="text-danger">*</span></label>
+					<div class="row g-2 mb-1">
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="sample4_postcode"
+								placeholder="우편번호" readonly>
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-primary py-2"
+								onclick="sample4_execDaumPostcode()">
+								<i class="fas fa-search"></i> 우편번호 찾기
+							</button>
+						</div>
+					</div>
+
+					<div class="row g-2 mb-1">
+						<div class="col-md-6">
+							<input type="text" class="form-control" id="sample4_roadAddress"
+								placeholder="도로명주소" readonly>
+						</div>
+						<div class="col-md-6">
+							<input type="text" class="form-control" id="sample4_jibunAddress"
+								placeholder="지번주소" readonly>
+						</div>
+					</div>
+
+					<div class="row g-2">
+						<div class="col-md-8">
+							<input type="text" class="form-control"
+								id="sample4_detailAddress" placeholder="상세주소">
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="form-control" id="sample4_extraAddress"
+								placeholder="참고항목" readonly>
+						</div>
+					</div>
+					<span id="guide" class="form-text" style="display: none"></span>
+					<div class="form-text">이벤트 당첨시 정확한 배송을 위해 상세주소까지 입력해주세요.</div>
+				</div>
+				<!-- 전화번호 필드 (선택사항) -->
+				<div class="mb-3">
+					<label for="phone" class="form-label">전화번호 (선택사항)</label>
+					<input type="tel" class="form-control" id="phone" name="phone" placeholder="예: 010-1234-5678">
+					<div class="form-text">SMS 알림 서비스 및 계정 복구에 사용됩니다.</div>
+				</div>
+				<script>
+			    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+			    function sample4_execDaumPostcode() {
+			        new daum.Postcode({
+			            oncomplete: function(data) {
+			                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+			                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+			                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			                var roadAddr = data.roadAddress; // 도로명 주소 변수
+			                var extraRoadAddr = ''; // 참고 항목 변수
+
+			                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+			                    extraRoadAddr += data.bname;
+			                }
+			                // 건물명이 있고, 공동주택일 경우 추가한다.
+			                if(data.buildingName !== '' && data.apartment === 'Y'){
+			                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+			                }
+			                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			                if(extraRoadAddr !== ''){
+			                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+			                }
+
+			                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+			                document.getElementById('sample4_postcode').value = data.zonecode;
+			                document.getElementById("sample4_roadAddress").value = roadAddr;
+			                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+			                
+			                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+			                if(roadAddr !== ''){
+			                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+			                } else {
+			                    document.getElementById("sample4_extraAddress").value = '';
+			                }
+
+			                var guideTextBox = document.getElementById("guide");
+			                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+			                if(data.autoRoadAddress) {
+			                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+			                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+			                    guideTextBox.style.display = 'block';
+
+			                } else if(data.autoJibunAddress) {
+			                    var expJibunAddr = data.autoJibunAddress;
+			                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+			                    guideTextBox.style.display = 'block';
+			                } else {
+			                    guideTextBox.innerHTML = '';
+			                    guideTextBox.style.display = 'none';
+			                }
+			            }
+			        }).open();
+			    }
+				</script>
+				<!-- 닉네임 필드 -->
+				<div class="mb-3">
+					<label for="nickname" class="form-label">닉네임 <span
+						class="text-danger">*</span></label> <input type="text"
+						class="form-control" id="nickname" name="nickname" required autocomplete="off">
+					<div class="error-message" id="nicknameError"></div>
+					<div class="form-text">다른 사용자에게 표시되는 이름 (2-10자)</div>
+				</div>
+
+				<!-- 이메일 필드 (인증 기능 포함) -->
+				<div class="mb-3">
+					<label for="email" class="form-label">이메일 <span
+						class="text-danger">*</span></label>
+					<div class="row g-2 mb-2">
+						<div class="col-md-8">
+							<input type="email" class="form-control" id="email" name="email"
+								placeholder="example@domain.com" required autocomplete="off">
+						</div>
+						<div class="col-md-4">
+							<div class="position-relative h-100">
+								<button type="button"
+									class="btn btn-primary py-2"
+									style="top: 0px;" id="sendVerificationBtn"
+									onclick="sendVerificationCode()">
+									<i class="fas fa-envelope"></i> 인증번호 발송
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="error-message" id="emailError"></div>
+					<div class="form-text">비밀번호 찾기 및 주요 알림에 사용됩니다.</div>
+
+					<!-- 인증번호 입력 영역 (처음에는 숨김) -->
+					<div id="verificationSection" style="display: none;" class="mt-3">
+						<div class="row g-2">
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="verificationCode"
+									placeholder="인증번호 6자리 입력" maxlength="6">
+								<div class="d-flex justify-content-between mt-1">
+									<span class="form-text" id="verificationTimer">남은 시간:
+										05:00</span> <span class="form-text" id="resendLink"
+										style="cursor: pointer; color: #0d6efd;">재발송</span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="position-relative h-100">
+									<button type="button"
+										class="btn btn-success w-100 position-absolute"
+										style="top: 0px;" id="verifyCodeBtn" onclick="verifyCode()">
+										<i class="fas fa-check"></i> 인증 확인
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="mt-1">
+							<span class="error-message" id="verificationError"></span> <span
+								class="valid-feedback" id="verificationSuccess"
+								style="display: none;">이메일 인증이 완료되었습니다.</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- 약관 동의 -->
+				<div class="mb-3 form-check">
+					<input type="checkbox" class="form-check-input" id="agreeTerms"
+						required> <label class="form-check-label" for="agreeTerms">
+						<a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">이용약관</a>과
+						<a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">개인정보처리방침</a>에
+						동의합니다.
+					</label>
+					<div class="error-message" id="agreeTermsError"></div>
+				</div>
+
+				<button class="btn btn-signup">회원가입</button>
+
+				<div class="login-link">
+					이미 계정이 있으신가요? <a href="/main?showLoginModal=true">로그인하기</a>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- 약관 모달 -->
+	<div class="modal fade" id="termsModal" tabindex="-1"
+		aria-labelledby="termsModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="termsModalLabel">이용약관</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<h5>제1조 (목적)</h5>
+					<p>본 약관은 코딩 스터디 허브(이하 '서비스')를 제공하는 회사(이하 '회사')와 서비스를 이용하는 회원(이하
+						'회원') 간의 권리와 의무, 책임사항 및 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
+
+					<h5>제2조 (용어의 정의)</h5>
+					<p>본 약관에서 사용하는 용어의 정의는 다음과 같습니다.</p>
+					<ol>
+						<li>'서비스'란 회사가 제공하는 코딩 스터디 허브의 모든 서비스를 의미합니다.</li>
+						<li>'회원'이란 서비스에 가입하여 고유한 ID를 부여받은 자를 의미합니다.</li>
+						<li>'아이디(ID)'란 회원의 식별과 서비스 이용을 위하여 회원이 정하고 회사가 승인하는 문자와 숫자의
+							조합을 의미합니다.</li>
+					</ol>
+
+					<!-- 추가 약관 내용 -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 개인정보처리방침 모달 -->
+	<div class="modal fade" id="privacyModal" tabindex="-1"
+		aria-labelledby="privacyModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="privacyModalLabel">개인정보처리방침</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<h5>1. 개인정보의 수집 및 이용 목적</h5>
+					<p>회사는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는
+						이용되지 않으며, 이용 목적이 변경되는 경우에는 「개인정보 보호법」 제18조에 따라 별도의 동의를 받는 등 필요한
+						조치를 이행할 예정입니다.</p>
+					<ul>
+						<li>회원 가입 및 관리</li>
+						<li>서비스 제공 및 운영</li>
+						<li>불만처리 등 민원처리</li>
+					</ul>
+
+					<h5>2. 수집하는 개인정보의 항목</h5>
+					<p>회사는 회원가입, 서비스 이용 등을 위해 다음과 같은 개인정보를 수집합니다.</p>
+					<ul>
+						<li>필수항목: 아이디, 비밀번호, 닉네임</li>
+						<li>선택항목: 이메일</li>
+					</ul>
+
+					<!-- 추가 개인정보처리방침 내용 -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="/assets/js/regist.js"></script>
+</body>
+</html>

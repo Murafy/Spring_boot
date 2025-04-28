@@ -1,0 +1,94 @@
+      body {
+        background-image: url('/assets/img/login-background.jpg'); /* 배경 이미지 URL (실제 이미지 URL로 변경) */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #formStyle {
+        background-color: rgba(255, 255, 255, 0.9); /* 폼 배경색 반투명 흰색, 투명도 살짝 낮춤 */
+        padding: 50px; /* padding 값 늘림 */
+        border-radius: 15px; /* 테두리 더 둥글게 */
+        box-shadow: 0 7px 25px rgba(0, 0, 0, 0.35); /* 그림자 효과 더 진하고 넓게 */
+        width: 450px; /* 폼 너비 살짝 늘림 */
+      }
+
+      .mb-4 {
+        margin-bottom: 2rem !important; /* 로고 이미지 margin-bottom 값 늘림 */
+        display: block; /* 로고 이미지를 block 요소로 변경 (중앙 정렬 용이) */
+        margin-left: auto; /* 좌우 margin auto 로 중앙 정렬 */
+        margin-right: auto;
+      }
+
+      .h3 {
+        text-align: center; /* "로그인" 제목 중앙 정렬 */
+        margin-bottom: 1.5rem !important; /* 제목 margin-bottom 값 조정 */
+        color: #333; /* 제목 텍스트 색상 어둡게 */
+        font-weight: bold; /* 제목 폰트 굵게 */
+      }
+
+      .form-floating {
+        margin-bottom: 1.5rem; /* form-floating margin-bottom 값 조정 */
+      }
+
+      .form-floating > .form-control {
+        border-radius: 10px; /* 입력 필드 테두리 둥글게 */
+        padding-left: 2rem; /* 왼쪽 padding 값 더 늘림 (아이콘 공간 확보) */
+        border-color: #ddd; /* 테두리 색상 옅게 */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* 내부 그림자 효과 */
+      }
+
+      .form-floating > .form-control:focus {
+        border-color: #007bff; /* focus 시 테두리 색상 Bootstrap primary color */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 5px rgba(0, 123, 255, 0.5); /* focus 시 그림자 효과 */
+      }
+
+
+      .form-floating > label {
+        padding-left: 2rem; /* label 왼쪽 padding 입력 필드와 맞춤 */
+        color: #999; /* label 텍스트 색상 더 옅게 */
+        font-weight: 500; /* label 폰트 굵기 중간 */
+      }
+
+      .form-floating > label > i {
+        margin-right: 0.5rem; /* label 아이콘 오른쪽 여백 */
+        color: #aaa; /* label 아이콘 색상 더 옅게 */
+      }
+
+
+      .form-check {
+        margin-bottom: 2rem; /* form-check margin-bottom 값 조정 */
+      }
+
+
+      .btn-primary {
+        border-radius: 12px; /* 버튼 테두리 더 둥글게 */
+        background-color: #0080ff; /* 버튼 배경색 살짝 더 밝은 파란색 */
+        border-color: #0080ff; /* 버튼 테두리 색상 변경 */
+        font-weight: bold; /* 버튼 텍스트 굵게 */
+        padding: 1rem 2rem; /* 버튼 padding 값 늘림 */
+        font-size: 1.1rem; /* 버튼 폰트 크기 살짝 키움 */
+        box-shadow: 0 4px 12px rgba(0, 128, 255, 0.6); /* 버튼 그림자 효과 */
+        transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out; /* hover 효과 transition */
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px); /* hover 시 살짝 더 위로 이동 */
+        box-shadow: 0 6px 20px rgba(0, 128, 255, 0.8); /* hover 시 그림자 더 진하고 넓게 */
+      }
+
+      .btn-primary > i {
+        margin-right: 0.7rem; /* 버튼 아이콘 오른쪽 여백 */
+      }
+
+
+      .mt-5 {
+        margin-top: 3rem !important; /* copyright margin-top 값 조정 */
+        text-align: center; /* copyright 텍스트 중앙 정렬 */
+        color: #777; /* copyright 텍스트 색상 옅게 */
+      }
+      

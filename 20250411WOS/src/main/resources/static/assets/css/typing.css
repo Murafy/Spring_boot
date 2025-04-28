@@ -1,0 +1,82 @@
+/* 타이핑 효과 css */
+@charset "UTF-8";
+.typing-container {
+    display: inline-block; /* 텍스트와 커서가 한 줄에 표시되도록 */
+ 	font-size: 50px;
+}
+
+/* @font-face {
+    font-family: 'Cafe24Decobox';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Decobox.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+#typing-text {
+    font-size: 1.1em; /* 글자 크기 설정 */
+    font-weight : 600;
+    color: #f7e600; /* 글자 색상 설정 */
+    font-family: '나눔고딕', sans-serif; /* 폰트 설정 (원하는 폰트로 변경 가능) */
+    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+    overflow: hidden; /* 텍스트가 영역을 벗어날 경우 숨김 */
+/*     border-right: .15em solid orange; 커서 역할의 세로선 설정 */
+    animation: typing 2s steps(20, end) forwards, /* 타이핑 애니메이션 */
+               blink-cursor .75s step-end infinite; /* 커서 깜빡임 애니메이션 */
+}
+
+/* 커서 스타일 */
+.cursor {
+    color: white; /* 커서 색상 (선택 사항, #typing-text에서 border-right로 커서 구현 가능) */
+    animation: blink-cursor .75s step-end infinite; /* 커서 깜빡임 애니메이션 */
+    width: 0.3em;
+    font-size: 1.1em;
+    font-weight: 900;
+    
+}
+
+
+/* 타이핑 애니메이션 */
+@keyframes typing {
+    from { width: 0 } /* 시작: 너비 0 */
+    to { width: 100% } /* 끝: 너비 100% (텍스트 내용에 따라 자동 조절) */
+}
+
+/* CSS 파일 */
+
+/* 커서 깜빡임 애니메이션 (color 속성 사용) */
+@keyframes blink-cursor {
+    from, to { color: transparent } /* 시작, 끝: 커서 투명하게 (글자색 투명) */
+    50% { color: white; } /* 중간: 커서 보이게 */
+}
+
+
+/* 애니메이션 텍스트 색상 스타일 */
+.java-color {
+    color: #ff7f00; /* Java: 진한 주황색 */
+    font-weight: bold; /* 글자 굵게 */
+}
+
+.javascript-color {
+    color: yellow; /* JavaScript: 노란색 */
+    font-weight: bold;
+}
+
+.html-css-color {
+    color: white; /* HTML/CSS: 하얀색 */
+    font-weight: bold;
+}
+
+.springboot-color {
+    color: green; /* SpringBoot: 초록색 */
+    font-weight: bold;
+}
+
+.oraclesql-color {
+    color: red; /* OracleSQL: 빨간색 */
+    font-weight: bold;
+}
+
+.react-color {
+    color: #0000ff; /* React: 파란색 */
+    font-weight: bold;
+}

@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+:root {
+	
+	/* 인용구 테마를 위한 변수 */
+    --quote-bg: white;
+    --quote-text: #333;
+    --quote-shadow: rgba(0, 0, 0, 0.08);
+    --quote-icon: rgba(0, 0, 0, 0.2);
+    --quote-author: #333;
+    --header-bg-image: none;
+    --header-bg-color: #f0f0f0; /* 연한 회색 */
+    --header-overlay: rgba(0, 0, 0, 0.1);
+    
+    /* 공통 스타일 변수 */
+    --text-color: #333;
+    --text-light: #6c757d;
+    --white: #FFF;
+    --background: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-radius: 0.75rem;
+    --small-radius: 0.5rem;
+    --transition: all 0.3s ease;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+    /* 기본 테마 색상 (기본값) */
+    --theme-primary: #007bff;
+    --theme-secondary: #6c757d;
+    --theme-accent: #e7f2ff;
+    --theme-dark: #0056b3;
+    --theme-light: #f0f7ff;
+    --theme-gradient: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    
+    /* 버튼 스타일 */
+    --button-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --button-hover-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    
+    /* 카드 및 섹션 스타일 */
+    --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    --card-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    
+    /* 다크 모드 변수 */
+    --dark-background: #121212;
+    --dark-card-bg: #1e1e1e;
+    --dark-text-color: #e0e0e0;
+    --dark-text-light: #b0b0b0;
+    --dark-border-color: #444;
+    --dark-secondary-bg: #2c2c2c;
+}
